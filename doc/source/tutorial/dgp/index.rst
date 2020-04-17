@@ -609,7 +609,7 @@ and returns a vector or matrix.
      - |convex| log-log convex
      - |incr| incr.
 
-   * - :ref:`reshape(X, (n', m')) <reshape>`
+   * - :ref:`reshape(X, (m', n')) <reshape>`
 
      - :math:`X' \in\mathbf{R}^{m' \times n'}`
      - :math:`X \in\mathbf{R}^{m \times n}_{++}`
