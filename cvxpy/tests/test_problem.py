@@ -1827,3 +1827,23 @@ class TestProblem(BaseTest):
         prob = cp.Problem(cp.Minimize(cost))
         result2 = prob.solve()
         self.assertAlmostEqual(result1, result2)
+
+    def test_indicator(self):
+        """Test a problem with indicators.
+        """
+        n = 5
+        m = 2
+        q = np.arange(n)
+        a = np.ones((m, n))
+        b = np.ones((m, 1))
+        x = cp.Variable((n, 1), name='x')
+        constraints = [a @ x == b]
+        objective = cp.Minimize((1/2) * cp.square(q.T @ x) + cp.transforms.indicator(constraints))
+        problem = cp.Problem(objective)
+        solution1 = problem.solve()
+
+        # Without indicators.
+        objective = cp.Minimize((1/2) * cp.square(q.T @ x))
+        problem = cp.Problem(objective, constraints)
+        solution2 = problem.solve()
+        self.assertAlmostEqual(solution1, solution2)
